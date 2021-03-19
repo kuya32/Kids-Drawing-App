@@ -3,6 +3,10 @@ package com.macode.kidsdrawingapp
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
+import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import com.macode.kidsdrawingapp.databinding.ActivityMainBinding
 import com.macode.kidsdrawingapp.databinding.DialogBrushSizeBinding
 
@@ -10,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var brushSizeBinding: DialogBrushSizeBinding
+    private var imageButtonCurrentPaint: ImageButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +23,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.drawingView.setSizeForBrush(10.toFloat())
+
+        imageButtonCurrentPaint = binding.linearColorPalette[0] as ImageButton
+        imageButtonCurrentPaint!!.setImageDrawable(
+            ContextCompat.getDrawable(this, R.drawable.pallet_selected)
+        )
 
         binding.brush.setOnClickListener {
             showBrushSizeChooserDialog()
@@ -63,5 +73,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         brushDialog.show()
+    }
+
+    fun paintClicked(view: View) {
+        if (view != imageButtonCurrentPaint) {
+            val imageButton = view as ImageButton
+
+            val colorTag = imageButton.tag.toString()
+            binding.drawingView.setColor(colorTag)
+            imageButton.setImageDrawable(
+                ContextCompat.getDrawable(this, R.drawable.pallet_selected)
+            )
+            imageButtonCurrentPaint!!.setImageDrawable(
+                ContextCompat.getDrawable(this, R.drawable.pallet_normal)
+            )
+            imageButtonCurrentPaint = view
+        }
     }
 }

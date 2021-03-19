@@ -5,26 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-    <com.macode.kidsdrawingapp.DrawingView
-        android:id="@+id/drawingView"
+    
+    <FrameLayout
+        android:id="@+id/frameDrawingViewContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="5dp"
-        android:layout_marginBottom="80dp"
+        android:padding="1dp"
         android:background="@drawable/background_drawing_view_layout"
         app:layout_constraintBottom_toTopOf="@+id/linearColorPalette"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <ImageView
+            android:id="@+id/imageViewBackground"
+            android:scaleType="centerCrop"
+            android:contentDescription="background image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.macode.kidsdrawingapp.DrawingView
+            android:id="@+id/drawingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80FFFFFF" />
+    </FrameLayout>
+
+
 
     <LinearLayout
         android:id="@+id/linearColorPalette"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/brush"
-        app:layout_constraintTop_toBottomOf="@+id/drawingView"
+        app:layout_constraintBottom_toTopOf="@+id/linearActionButtons"
+        app:layout_constraintTop_toBottomOf="@+id/frameDrawingViewContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -109,17 +125,52 @@
             android:onClick="paintClicked"/>
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/brush"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:contentDescription="brush_image"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_brush"
-        android:layout_margin="5dp"
+    <LinearLayout
+        android:id="@+id/linearActionButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/gallery"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="gallery image"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_gallery"
+            android:layout_margin="5dp" />
+
+        <ImageButton
+            android:id="@+id/undo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="undo previous action"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_undo"
+            android:layout_margin="5dp" />
+
+        <ImageButton
+            android:id="@+id/redo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="redo previous action"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_redo"
+            android:layout_margin="5dp" />
+
+        <ImageButton
+            android:id="@+id/brush"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="brush_image"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_brush"
+            android:layout_margin="5dp" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
